@@ -1,7 +1,8 @@
 import { CSSProperties } from 'react';
+import { FallbackProps } from 'react-error-boundary';
 import styled from 'styled-components';
 
-interface Props {
+interface Props extends FallbackProps {
     onClick?: () => void;
     styles?: CSSProperties;
 }

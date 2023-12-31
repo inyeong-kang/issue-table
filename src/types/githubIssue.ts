@@ -21,6 +21,11 @@ export type IssueState = keyof typeof STATE_OPTION;
 
 export type IssueSort = keyof typeof SORT_OPTION;
 
+export interface IssueSearch {
+    total_count: number;
+    incomplete_results: boolean;
+}
+
 export interface GitHubIssue {
     id: number;
     node_id: string;
