@@ -1,3 +1,4 @@
+import { PATH } from '@/constants/path';
 import { CSSProperties } from 'react';
 import { FallbackProps } from 'react-error-boundary';
 import { useNavigate } from 'react-router';
@@ -13,7 +14,7 @@ export default function ErrorFallback({ onClick, styles }: Props) {
     return (
         <Wrapper style={styles}>
             <h4>데이터를 불러오는 중 오류가 발생했어요.</h4>
-            <MainButton onClick={onClick ? onClick : () => navigate('/')}>새로고침하기</MainButton>
+            <MainButton onClick={onClick ? onClick : () => navigate(PATH.HOME)}>새로고침하기</MainButton>
         </Wrapper>
     );
 }
