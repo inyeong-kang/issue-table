@@ -1,9 +1,9 @@
-import { GitHubIssue, IssueSort, IssueState } from '@/types/githubIssue';
+import { ISSUE_LIST_PER_PAGE } from '@/constants/page';
+import { GitHubIssue, IssueSearch, IssueSort, IssueState } from '@/types/githubIssue';
 import { getFetch } from '@utils/fetch';
 
 const API_BASE_URL = 'https://api.github.com';
 
-export const ISSUE_LIST_PER_PAGE = 10;
 const REPO_NAME = 'facebook/react';
 
 const getIssueList = async (page: number, state: IssueState, sort: IssueSort): Promise<GitHubIssue[]> => {
@@ -13,4 +13,16 @@ const getIssueList = async (page: number, state: IssueState, sort: IssueSort): P
     return response;
 };
 
-export { getIssueList };
+const getSearchIssue = async (state: IssueState): Promise<number> => {
+    if (state === 'all') {
+        const response = await getFetch<IssueSearch>(`${API_BASE_URL}/search/issues?q=repo:facebook/react+type:issue`);
+
+        return response.total_count;
+    }
+    const response = await getFetch<IssueSearch>(
+        `${API_BASE_URL}/search/issues?q=repo:${REPO_NAME}+type:issue+state:${state}`
+    );
+    return response.total_count;
+};
+
+export { getIssueList, getSearchIssue };

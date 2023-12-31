@@ -1,7 +1,7 @@
 import { CSSProperties, useState } from 'react';
 import * as S from './style';
 
-import { ISSUE_LIST_PER_PAGE } from '@/apis/githubIssue';
+import { ISSUE_LIST_PER_PAGE } from '@/constants/page';
 
 interface Props {
     show: number;
