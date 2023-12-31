@@ -47,6 +47,8 @@ const Button = styled.button`
     color: var(--white);
     padding: 8px 12px;
     border-radius: 8px;
+
+    cursor: pointer;
 `;
 
 const MainButton = styled(Button)`
