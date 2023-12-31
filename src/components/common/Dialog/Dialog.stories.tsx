@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Dialog } from '.';
+import Dialog from '.';
 import { IssueState, STATE_OPTION } from '@/types/githubIssue';
 import styled from 'styled-components';
 import Chip from '../Chip';

@@ -129,4 +129,4 @@ Dialog.Close = Close;
 Dialog.CTAButton = CTAButton;
 Dialog.Footer = Footer;
 
-export { Dialog };
+export default Dialog;

@@ -5,9 +5,13 @@ import { getIssueList, getSearchIssue } from '@/apis/githubIssue';
 import IssueTable from '@components/IssueTable';
 import Pagination from '@/components/common/Pagination';
 import Chip from '@/components/common/Chip';
-import { FilterOption, STATE_OPTION, SORT_OPTION } from '@/types/githubIssue';
+import Dialog from '@components/common/Dialog';
+
+import { FilterOption, STATE_OPTION, SORT_OPTION, IssueState, IssueSort } from '@/types/githubIssue';
+
 import blueArrow from '@/assets/arrow_down_blue.svg';
 import grayArrow from '@/assets/arrow_down_gray.svg';
+import checkIcon from '@/assets/blue-check.svg';
 
 import * as S from './style';
 
@@ -22,6 +26,20 @@ export default function IssueListFetcher({ filterOptions, onFilterChange }: Prop
     const { state, sort } = filterOptions;
 
     const [currentPage, setCurrentPage] = useState(1);
+
+    const [stateChip, setStateChip] = useState<IssueState>(state);
+    const [sortChip, setSortChip] = useState<IssueSort>(sort);
+
+    const [isStateModalOpen, setStateModalOpen] = useState(false);
+    const [isSortModalOpen, setSortModalOpen] = useState(false);
+
+    const handleModalOpen = (option: keyof FilterOption) => {
+        if (option === 'state') {
+            setStateModalOpen(true);
+            return;
+        }
+        setSortModalOpen(true);
+    };
 
     const { data: totalAmount } = useQuery(['searched-issuse-amount'], () => getSearchIssue(state), {
         suspense: true,
@@ -44,7 +62,7 @@ export default function IssueListFetcher({ filterOptions, onFilterChange }: Prop
             {issueList && (
                 <Fragment>
                     <S.FilterChipContainer>
-                        <Chip onClick={() => alert('click to open modal')}>
+                        <Chip onClick={() => handleModalOpen('state')}>
                             {state === 'all' ? (
                                 <>
                                     <span> 이슈 상태 </span> <img src={grayArrow} />
@@ -56,7 +74,7 @@ export default function IssueListFetcher({ filterOptions, onFilterChange }: Prop
                                 </>
                             )}
                         </Chip>
-                        <Chip onClick={() => alert('click to open modal')}>
+                        <Chip onClick={() => handleModalOpen('sort')}>
                             <span>{SORT_OPTION[sort]}</span>
                             <img src={grayArrow} />
                         </Chip>
@@ -69,6 +87,66 @@ export default function IssueListFetcher({ filterOptions, onFilterChange }: Prop
                         onPageClick={handlePageButtonClick}
                         styles={{ marginTop: '24px' }}
                     />
+                    {isStateModalOpen && (
+                        <Dialog open={isStateModalOpen} onOpenChange={setStateModalOpen}>
+                            <Dialog.BackDrop />
+                            <Dialog.Content styles={{ padding: '20px 15px 20px 20px' }}>
+                                <Dialog.Title>이슈 상태</Dialog.Title>
+                                <Dialog.Body styles={{ marginTop: '15px' }}>
+                                    <S.StateChipContainer>
+                                        {Object.entries(STATE_OPTION).map(([key, value]) => {
+                                            return (
+                                                <Chip
+                                                    key={key}
+                                                    onClick={() => setStateChip(key as IssueState)}
+                                                    styles={{
+                                                        color: stateChip === (key as IssueState) ? 'white' : 'black',
+
+                                                        backgroundColor:
+                                                            stateChip === (key as IssueState) ? '#1A8CFF' : 'white',
+                                                    }}
+                                                >
+                                                    <span>{value}</span>
+                                                </Chip>
+                                            );
+                                        })}
+                                    </S.StateChipContainer>
+                                </Dialog.Body>
+                                <Dialog.CTAButton
+                                    isButtonToClose={false}
+                                    action={() => onFilterChange('state', stateChip)}
+                                >
+                                    적 용
+                                </Dialog.CTAButton>
+                            </Dialog.Content>
+                        </Dialog>
+                    )}
+                    {isSortModalOpen && (
+                        <Dialog open={isSortModalOpen} onOpenChange={setSortModalOpen}>
+                            <Dialog.BackDrop />
+                            <Dialog.Content styles={{ padding: '20px 15px 10px 20px' }}>
+                                <Dialog.Title>정렬</Dialog.Title>
+                                <Dialog.Body styles={{ margin: '20px 0' }}>
+                                    <S.SortListContainer>
+                                        {Object.entries(SORT_OPTION).map(([key, value]) => {
+                                            return (
+                                                <S.SortBox
+                                                    key={key}
+                                                    onClick={() => {
+                                                        setSortChip(key as IssueSort);
+                                                        onFilterChange('sort', key as IssueSort);
+                                                    }}
+                                                >
+                                                    <span>{value}</span>
+                                                    {sortChip === (key as IssueSort) && <img src={checkIcon} />}
+                                                </S.SortBox>
+                                            );
+                                        })}
+                                    </S.SortListContainer>
+                                </Dialog.Body>
+                            </Dialog.Content>
+                        </Dialog>
+                    )}
                 </Fragment>
             )}
         </Fragment>
