@@ -24,6 +24,7 @@ const Wrapper = styled.div`
     overflow-x: auto;
     min-width: 500px;
     max-width: 1200px;
+    width: 100%;
 `;
 
 const StyledTable = styled.table`
