@@ -3,8 +3,11 @@ import styled from 'styled-components';
 export const MainWrapper = styled.main`
     display: flex;
     flex-direction: column;
-    margin: 80px;
+    margin: 72px 60px;
     max-width: 1440px;
+
+    border-top: 1px solid #e2e2e2;
+    padding-top: 32px;
 `;
 
 export const Section = styled.section`

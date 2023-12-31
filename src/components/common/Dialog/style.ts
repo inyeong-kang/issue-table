@@ -22,7 +22,7 @@ export const ModalContainer = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
 
-    width: 420px;
+    min-width: 420px;
     height: auto;
     max-width: 290px;
     border-radius: 16px;
@@ -70,6 +70,8 @@ export const MainButton = styled.button`
 
     font-size: 16px;
     letter-spacing: 2px;
+
+    margin-top: 10px;
 `;
 
 export const Secondary = styled(MainButton)`

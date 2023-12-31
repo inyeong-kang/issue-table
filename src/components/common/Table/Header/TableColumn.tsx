@@ -1,4 +1,5 @@
 import React, { CSSProperties } from 'react';
+import styled from 'styled-components';
 
 interface Props<T, U> {
     children: React.ReactElement | string;
@@ -14,7 +15,17 @@ const TableColumn = <T, U>({ children, styles, id, isSortableHeader, sortDir, so
     const isArrowVisible = isSortableHeader && sortKey === id && sortDir !== 'none';
     if (isArrowVisible) console.log(isArrowVisible);
 
-    return <th style={styles}>{children}</th>;
+    return <Th style={styles}>{children}</Th>;
 };
+
+const Th = styled.th`
+    color: #5a6066;
+    font-family: Pretendard;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px; /* 142.857% */
+    padding: 10px 7px;
+`;
 
 export default TableColumn;

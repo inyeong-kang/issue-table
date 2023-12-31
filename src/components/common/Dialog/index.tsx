@@ -15,6 +15,12 @@ interface PortalProps {
     container?: HTMLElement;
 }
 
+interface CTAButtonProps extends PropsWithChildren {
+    styles?: CSSProperties;
+    action: () => void;
+    isButtonToClose: boolean;
+}
+
 const Dialog = (props: DialogProps) => {
     const { children, ...restProps } = props;
 
@@ -58,12 +64,6 @@ const Close = (props: PropsWithChildren<{ styles?: CSSProperties }>) => {
         </>
     );
 };
-
-interface CTAButtonProps extends PropsWithChildren {
-    styles?: CSSProperties;
-    action: () => void;
-    isButtonToClose: boolean;
-}
 
 const CTAButton = (props: CTAButtonProps) => {
     const { children, styles, action, isButtonToClose = false } = props;

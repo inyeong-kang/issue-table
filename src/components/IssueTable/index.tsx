@@ -11,13 +11,13 @@ interface Props {
 const IssueTable = ({ data }: Props) => {
     const { onSort, sortedItems, sortDir, sortKey } = useSort({ data });
     return (
-        <Table>
+        <Table styles={{ width: '100%' }}>
             <Table.Header
                 onSort={onSort}
                 sortDir={sortDir}
                 sortKey={sortKey}
                 isSortableHeader
-                styles={{ backgroundColor: '#F5F8FA' }}
+                styles={{ backgroundColor: '#F5F8FA', height: '32px' }}
             >
                 <Table.Column id="id">번호</Table.Column>
                 <Table.Column id="title" styles={{ textAlign: 'start', paddingLeft: '6px' }}>

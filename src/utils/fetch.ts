@@ -1,5 +1,6 @@
 const headers = {
     'Content-Type': 'application/json',
+    Authorization: `token ${import.meta.env.VITE_GITHUB_API_TOKEN}`, // 여기에 토큰을 넣어주세요!!
 };
 
 export const getFetch = async <T>(url: string): Promise<T> => {

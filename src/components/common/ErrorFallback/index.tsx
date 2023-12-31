@@ -1,5 +1,6 @@
 import { CSSProperties } from 'react';
 import { FallbackProps } from 'react-error-boundary';
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 
 interface Props extends FallbackProps {
@@ -8,10 +9,11 @@ interface Props extends FallbackProps {
 }
 
 export default function ErrorFallback({ onClick, styles }: Props) {
+    const navigate = useNavigate();
     return (
         <Wrapper style={styles}>
             <h4>데이터를 불러오는 중 오류가 발생했어요.</h4>
-            <MainButton onClick={onClick}>새로고침하기</MainButton>
+            <MainButton onClick={onClick ? onClick : () => navigate('/')}>새로고침하기</MainButton>
         </Wrapper>
     );
 }
@@ -23,8 +25,10 @@ const Wrapper = styled.div`
     align-items: center;
 
     h4 {
-        font: var(--text-body);
+        font: var(--text-subtitle);
     }
+
+    margin-top: 30px;
 `;
 
 const Button = styled.button`
@@ -39,4 +43,6 @@ const Button = styled.button`
 const MainButton = styled(Button)`
     background-color: var(--primary-color);
     color: var(--white);
+
+    margin-top: 30px;
 `;

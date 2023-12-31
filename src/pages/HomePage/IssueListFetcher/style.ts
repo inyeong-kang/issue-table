@@ -37,7 +37,14 @@ export const SortBox = styled.li`
     height: 40px;
 
     span {
-        font: var(--text-body);
+        color: #363b40;
+
+        /* Title 3 (18|26 Medium) */
+        font-family: Pretendard;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 26px; /* 144.444% */
     }
     img {
         width: 20px;

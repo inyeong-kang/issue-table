@@ -74,7 +74,7 @@ export default function IssueListFetcher({ filterOptions, onFilterChange }: Prop
                                 </>
                             )}
                         </Chip>
-                        <Chip onClick={() => handleModalOpen('sort')}>
+                        <Chip onClick={() => handleModalOpen('sort')} styles={{ border: 'none' }}>
                             <span>{SORT_OPTION[sort]}</span>
                             <img src={grayArrow} />
                         </Chip>
